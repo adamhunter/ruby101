@@ -3,6 +3,8 @@ blink_start  = "\e[5;32;40m"
 blink_end    = "\e[m\n"
 
 SLIDES = [
+  clear_screen +
+  "Welcome to Ruby 101! ".to_ascii.colorize(background: :blue),
 
   clear_screen +
   "Why is Ruby Awesome?".to_ascii.red,
@@ -317,39 +319,99 @@ SLIDES = [
           @gender.to_s.upcase.first
         end
       end
-    ]
+    ],
 
-  # clear_screen + 
-  # "Class.methods".to_ascii.colorize(color: :black, background: :yellow),
+  clear_screen + 
+  "Class.methods".to_ascii.colorize(color: :black, background: :yellow),
+    %Q[
+      class Person
+        def self.new_with_name(name)
+          new name: name
+        end
+      end
 
-  # clear_screen + 
-  # "Mo Modules mo problems".to_ascii.light_green,
-    # Patching the monkey
+      def Person.new_with_name_and_age(name, age)
+        new name: name, age: age
+      end
+    ],
 
-  # clear_screen + 
-  # "Protoype Methods".to_ascii,
+  clear_screen + 
+  "Mo Modules mo problems".to_ascii.light_green,
+    %q[
+      module Vocal
+        def speak(attribute)
+          def "My #{attribute} is #{public_send(attribute)}"
+        end
+      end
 
-  # clear_screen + 
-  # "Ruby Gems".to_ascii.red,
+      class Person
+        include Vocal
+      end
 
-  # clear_screen + 
-  # "Bundler".to_ascii.light_blue,
+      module Explosive
+        def explode
+          puts split('').map { |c| c.rjust(rand(50) + 1, ' ') }.join("\n")
+        end
+      end
 
-  # clear_screen + 
-  # "Rspec".to_ascii.green,
-  #   %Q[
-  #     describe "mommas" do
-  #       it "is so fat" do
-  #         # expects yo_momma.so_fat? to return true
-  #         yo_momma.should be_so_fat
-  #       end
-  #     end
+      String.send(:include, Explosive)
+    ],
 
-  #     # NOTE! 
-  #     #   Rspec now lets you write yo momma jokes this way:
-  #     #   expect(yo_momma).to be_so_fat
-  #   ]
+  clear_screen + 
+  "Protoype Methods".to_ascii,
+    %Q[
+    Examples:
+      
+      person = Person.new
+
+      def person.awesome?
+        name == 'Adam'
+      end
+
+      person.awesome?
+      person.name = 'Adam'
+      person.awesome?
+
+      ben = person.clone
+      jim = person.dup
+      ben.name = 'Ben'
+      jim.name = 'Jim'
+
+      ben.awesome?
+      jim.awesome?
+    ],
+
+  clear_screen + 
+  "Ruby Gems".to_ascii.red,
+    %Q[
+      gem install colorize
+      irb
+      require 'colorize'
+      puts "Ruby Gems makes ruby awesome".red
+    ],
+
+  clear_screen + 
+  "Bundler".to_ascii.light_blue,
+
+  clear_screen + 
+  "Rspec".to_ascii.green,
+    %Q[
+      # NOTE! in a new tab, I can run `rspec main.rb` to run all my specs
+      
+      describe "mommas" do
+        it "is so fat" do
+          # expects yo_momma.so_fat? to return true
+          yo_momma.should be_so_fat
+        end
+      end
+
+      # NOTE! 
+      #   Rspec now lets you write yo momma jokes this way:
+      #   expect(yo_momma).to be_so_fat
+    ],
+
+  clear_screen +
+  "Thank you! ".to_ascii.colorize(background: :red)
   
-
 ].freeze
 
